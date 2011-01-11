@@ -13,9 +13,13 @@ Contact:
 
 Copyright 2010 and 2011 by Tiziano D'Albis, Lovisa Irpa Helgadottir, Saikat Ray, Hadi Roohani, Helene Schmidt and Luis F. Seoane. 
 
-ReGo is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation either version 3 of the License, or (at your option) any later version. 
+ReGo is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
 
-ReGo is distributed with the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License in file COPYING for more details. 
+the Free Software Foundation either version 3 of the License, or (at your option) any later version. 
+
+ReGo is distributed with the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of 
+
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License in file COPYING for more details. 
 
 You should have received a copy of the GNU General Public License along with this program; if not, see <http://www.gnu.org/licenses/>. 
 
@@ -24,7 +28,7 @@ You should have received a copy of the GNU General Public License along with thi
 
 import move as M
 from board import Board
-from copy import copy
+from copy import deepcopy
 from player import Player
 from numpy import random
 import numpy as np
@@ -66,6 +70,7 @@ def __updateBoard__(movPos,movColor,bData):
 
     # update playable positions and probabilities
     playList=[]
+
     for x in xrange(boardSize):
         for y in xrange(boardSize):
 
@@ -76,7 +81,7 @@ def __updateBoard__(movPos,movColor,bData):
                 playList.append([x,y])
 
             boardProbs[x,y]=np.exp(min([bCount,wCount])-max([bCount,wCount]))
-    #print sum(nc)
+
     return [bData,playList,boardProbs]
 
 # **** function evaluate
@@ -92,16 +97,15 @@ def evaluate(bData):
     else:
         return iran.choice(['Black','White'])
 # *** 
-
+    
 def mycopy(a):
     b = [[[e for e in el] for el in row] for row in a ]
     return b
-    
 
 def MonteCarloRen(renBoardData,ourColor,wsize):   # RenBoardData Format: [color,numEmpty,bCount,wCount]  maybe we need to use numEmpty later
 
-    numRuns = 5;
-    movesPerRun = 10;
+    numRuns = 2;
+    movesPerRun = 3;
     
     lettList=['A','B','C','D','E','F','G','H','J','K','L','M','N','O','P','Q','R','S','T']
     
@@ -135,8 +139,7 @@ def MonteCarloRen(renBoardData,ourColor,wsize):   # RenBoardData Format: [color,
         
         tryWinList=[]
 
-        for run in range(numRuns):
-
+        for run in xrange(numRuns):
 
             boardData=mycopy(renBoardData)
 
@@ -144,7 +147,7 @@ def MonteCarloRen(renBoardData,ourColor,wsize):   # RenBoardData Format: [color,
             [boardData,playList,boardProbs]=__updateBoard__(pos,ourColor,boardData)
             numPos=len(playList)
 
-            for moves in range(movesPerRun):
+            for moves in xrange(movesPerRun):
 
                 # finding a move for opponent the prob of which is more than a random number
                 oppPlayCandidate=playList[random.randint(numPos)]
@@ -172,7 +175,6 @@ def MonteCarloRen(renBoardData,ourColor,wsize):   # RenBoardData Format: [color,
 
             [boardData,playList,boardProbs]=__updateBoard__(ourPlayCandidate,ourColor,boardData)
             numPos=len(playList)
-
 
             tryWinList.append(evaluate(boardData))
 

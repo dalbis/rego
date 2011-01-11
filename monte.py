@@ -13,9 +13,13 @@ Contact:
 
 Copyright 2010 and 2011 by Tiziano D'Albis, Lovisa Irpa Helgadottir, Saikat Ray, Hadi Roohani, Helene Schmidt and Luis F. Seoane. 
 
-ReGo is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation either version 3 of the License, or (at your option) any later version. 
+ReGo is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
 
-ReGo is distributed with the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License in file COPYING for more details. 
+the Free Software Foundation either version 3 of the License, or (at your option) any later version. 
+
+ReGo is distributed with the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of 
+
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License in file COPYING for more details. 
 
 You should have received a copy of the GNU General Public License along with this program; if not, see <http://www.gnu.org/licenses/>. 
 
@@ -33,7 +37,7 @@ import numpy as np
 def MonteCarlo(log,board,ourColor,Bplayer,Wplayer):
     
     numRuns = 5;
-    movesPerRun = 10;
+    movesPerRun = 5;
     
     lettList=['A','B','C','D','E','F','G','H','J','K','L','M','N','O','P','Q','R','S','T']
     
